@@ -40,10 +40,11 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
 
     try {
-
+        // collections api 
         const brandCollection = client.db("usedProduct").collection("brand");
 
-        const productCollection = client.db("usedProduct").collection("product")
+        const productCollection = client.db("usedProduct").collection("product");
+        const ordersCollection = client.db("usedProduct").collection('orders')
 
         // get api
 
@@ -58,6 +59,12 @@ async function run() {
             const query = { _id: ObjectId(id) }
             const products = await productCollection.findOne(query)
             res.send(products)
+        });
+
+        app.post('/orders', async (req, res) => {
+            const orders = req.body
+            const result = ordersCollection.insertOne(orders);
+            res.send(result)
         })
 
 
@@ -84,16 +91,10 @@ async function run() {
 
 run().catch(err => console.log(err))
 
-
-
-
-
+app.listen(port, () => {
+    console.log("server running", port);
+})
 
 
 // QECfFi55pmCHzvnS
 // usedProduct
-
-
-app.listen(port, () => {
-    console.log("server running", port);
-})
