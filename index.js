@@ -5,8 +5,10 @@ require("dotenv").config();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
 
+// server used
 const categories = require("./data/category.json")
-const news = require("./data/product.json")
+const product = require("./data/product.json");
+const { query } = require('express');
 
 // middle ware
 app.use(cors());
@@ -16,53 +18,20 @@ app.get("/", (req, res) => {
     res.send("product server running")
 })
 
-app.get("/brands", (req, res) => {
-    res.send(categories);
-});
-
+// using local server 
+// app.get("/brands", (req, res) => {
+//     res.send(categories);
+// });
 
 app.get("/category/:id", (req, res) => {
     const id = req.params.id
-    const categoryNews = news.filter((n) => n.category_id === id);
+    const categoryNews = product.filter((n) => n.category_id === id);
     res.send(categoryNews);
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// server used
 
 // MONGO DB
-
 const uri = `mongodb+srv://${process.env.ADMIN_USER}:${process.env.ADMIN_PASS}@cluster0.guw4vbk.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -73,23 +42,29 @@ async function run() {
 
         const brandCollection = client.db("usedProduct").collection("brand");
 
-        const productCollection = client.db("usedProduct").collection("products")
-
-
+        const productCollection = client.db("usedProduct").collection("product")
 
         // get api
 
-        // app.get("/brands", async (req, res) => {
-        //     const query = {};
-        //     const brands = await brandCollection.find(query).toArray()
-        //     res.send(brands)
-        // })
+        app.get("/brands", async (req, res) => {
+            const query = {};
+            const brands = await brandCollection.find(query).toArray()
+            res.send(brands)
+        })
 
-        // app.get('/category/:id', (req, res) => {
-        //     const id = req.params.id;
-        //     const productCategory = product.filter((product) => product.category_id === id);
-        //     res.send(productCategory)
-        // })
+        app.get('/product/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const products = await productCollection.findOne(query)
+            res.send(products)
+        })
+
+
+
+
+
+
+
 
 
     }
