@@ -1,0 +1,120 @@
+[
+  {
+    "_id": "df11ff9feefc37613cc3a4486ce02151",
+
+    "category_id": "02",
+    "rating": { "number": 4.5, "badge": "Excellent" },
+    "total_view": 552,
+    "title": "US commander to train Ukraine military",
+    "name": "MacBook Pro 13.3- 2015 i5 8-256 GB SSD",
+    "location": "Dhaka",
+    "Release_Date": "August 2020",
+    "Original_Price": "85000",
+    "Release_Price": "5000",
+    "Years_of_use": "1yr",
+    "published_date": "2022-11-24 ",
+    "sellers_name": "korim",
+    "img": "https://i.bikroy-st.com/macbook-pro-133-2015-i5-8-256-gb-ssd-for-sale-dhaka-9/bc68607c-ec25-4359-a267-6275ca965b97/733/240/fitted.jpg"
+  },
+
+  {
+    "_id": "374df11ae3d9b8b9ce21f4dc53f59b85",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "01",
+    "rating": { "number": 4.5, "badge": "Excellent" },
+    "total_view": 798,
+    "title": "Zelensky says he had ‘great conversation' with Biden, discussed Kiev's further steps",
+    "name": "Dell Inspiron 15 3511 Core i3 11th Gen 15.6",
+    "location": "Borishal",
+    "Release_Date": "August 2021",
+    "Original_Price": "82000",
+    "Release_Price": "40000",
+    "Years_of_use": "2yr",
+    "published_date": "2022-11-23 ",
+    "sellers_name": "javed",
+    "img": "https://www.startech.com.bd/image/cache/catalog/laptop/dell/inspiron-15-3511/inspiron-15-3511-88989-500x500.jpg"
+  },
+  {
+    "_id": "acb9b6785b62698fc6130db7615965e1",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "03",
+    "rating": { "number": 4.5, "badge": "Excellent" },
+    "total_view": 879,
+    "title": "US Pledges $3 Bln In Additional Security Assistance For Ukraine",
+    "name": "Samsung Galaxy Galaxy Book Pro 360 i5",
+    "location": "Dhaka",
+    "Release_Date": "january 2021",
+    "Original_Price": "110000",
+    "Release_Price": "90000",
+    "Years_of_use": "5m",
+    "published_date": "2022-11-18 ",
+    "sellers_name": "shuvo",
+    "img": "https://www.startech.com.bd/image/cache/catalog/laptop/samsung/galaxy-book-pro/galaxy-book-pro-002-500x500.jpg"
+  },
+  {
+    "_id": "be44c843d61859cc0b87cae85c55f9db",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "01",
+    "rating": { "number": 4.5, "badge": "Excellent" },
+    "total_view": 231,
+    "title": "US to name military mission in Ukraine and appoint commander – WSJ",
+    "name": "Dell Latitude 14 3420 Core i3 11th Gen 14",
+    "location": "Rajshahi",
+    "Release_Date": "August 2019",
+    "Original_Price": "75000",
+    "Release_Price": "45000",
+    "Years_of_use": "2yr",
+    "published_date": "2022-11-13 ",
+    "sellers_name": "rofik",
+    "img": "https://www.startech.com.bd/image/cache/catalog/laptop/dell/latitude-14-3420/latitude-3420-01-500x500.jpg"
+  },
+  {
+    "_id": "1b03149c50f1bec662062d930bf46489",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "02",
+    "rating": { "number": 4.5, "badge": "Excellent" },
+    "total_view": 546,
+    "title": "Opinion: After a summer of surprising successes, President Biden is on a roll",
+    "name": "Apple MacBook Pro 16-Inch M1 Chip 64GB ",
+    "location": "Dhaka",
+    "Release_Date": "August 2021",
+    "Original_Price": "120000",
+    "Release_Price": "80000",
+    "Years_of_use": "1yr",
+    "published_date": "2022-11-23 ",
+    "sellers_name": "hasan",
+    "img": "https://www.cultofmac.com/wp-content/uploads/2016/03/macbook-3-780x520.jpeg"
+  },
+  {
+    "_id": "7f5b80c1cdd4df0111918883eae07349",
+    "others_info": {
+      "is_todays_pick": false,
+      "is_trending": true
+    },
+    "category_id": "03",
+    "rating": { "number": 4.5, "badge": "Excellent" },
+    "total_view": 1870,
+    "title": "Ukraine receives more military aid from allies on its independence day",
+    "name": "Samsung Galaxy Book Pro 360 Core i7 11th Gen 2-in-1 15.6",
+    "location": "Dhaka",
+    "Release_Date": "january 2022",
+    "Original_Price": "90000",
+    "Release_Price": "70000",
+    "Years_of_use": "6m",
+    "published_date": "2022-11-18 ",
+    "sellers_name": "kobir",
+    "img": "https://www.startech.com.bd/image/cache/catalog/laptop/samsung/galaxy-book-pro-360/galaxy-book-pro-360-02-500x500.jpg"
+  }
+]
