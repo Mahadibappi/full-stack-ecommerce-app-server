@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const jwt = require('jsonwebtoken')
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
@@ -41,9 +42,12 @@ async function run() {
 
     try {
         // collections api 
+
+        const userCollection = client.db("usedProduct").collection("users");
         const brandCollection = client.db("usedProduct").collection("brand");
 
         const productCollection = client.db("usedProduct").collection("product");
+
         const ordersCollection = client.db("usedProduct").collection('orders')
 
         // get api
@@ -62,15 +66,39 @@ async function run() {
         });
 
         app.get("/orders", async (req, res) => {
-            const query = {};
+            const email = req.query.email
+            const query = { email: email };
             const orders = await ordersCollection.find(query).toArray()
             res.send(orders)
         })
 
+
+        // POST API
         app.post('/orders', async (req, res) => {
             const orders = req.body
             const result = ordersCollection.insertOne(orders);
             res.send(result)
+        })
+
+
+        app.post('/users', async (req, res) => {
+            const user = req.body
+            const result = await userCollection.insertOne(user)
+            res.send(result)
+        })
+
+        // jwt token
+
+        app.get('/jwt', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email };
+            const user = await userCollection.findOne(query);
+            if (user) {
+                const token = jwt.sign({ email }, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
+                return res.send({ accessToken: token })
+            }
+
+            res.status(403).send({ accessToken: "" })
         })
 
 
