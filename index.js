@@ -69,6 +69,8 @@ async function run() {
         const productCollection = client.db("usedProduct").collection("product");
 
         const ordersCollection = client.db("usedProduct").collection('orders')
+        const sellerCollection = client.db("usedProduct").collection('sellers')
+
 
         // get api
 
@@ -94,6 +96,12 @@ async function run() {
             const query = { email: email };
             const orders = await ordersCollection.find(query).toArray()
             res.send(orders)
+        })
+        //get seller collection
+        app.get("/seller", async (req, res) => {
+            const query = {};
+            const seller = await sellerCollection.find(query).toArray()
+            res.send(seller)
         })
 
 
@@ -143,8 +151,21 @@ async function run() {
             res.status(403).send({ accessToken: "" })
         })
 
+        // seller collection
 
+        app.post('/seller', async (req, res) => {
+            const seller = req.body;
+            const result = await sellerCollection.insertOne(seller);
+            res.send(result)
+        })
 
+        //delete buyers 
+        app.delete('/users/:id', async (req, res) => {
+            const id = req.params.id
+            const filter = { _id: ObjectId(id) }
+            const result = userCollection.deleteOne(filter);
+            res.send(result)
+        })
 
 
 
