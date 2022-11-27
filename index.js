@@ -71,6 +71,17 @@ async function run() {
         const ordersCollection = client.db("usedProduct").collection('orders')
         const sellerCollection = client.db("usedProduct").collection('sellers')
 
+        // verify admin
+        const verifyAdmin = async (req, res, next) => {
+            const decodedEmail = req.decoded.email;
+            const query = { email: decodedEmail };
+            const user = await userCollection.findOne(query);
+            if (user?.role !== 'admin') {
+                return res.status(403).send({ message: 'forbidden access' })
+            }
+            next()
+        }
+
 
         // get api
 
@@ -124,14 +135,14 @@ async function run() {
 
 
         // POST API
-        app.post('/orders', async (req, res) => {
+        app.post('/orders', verifyJWT, async (req, res) => {
             const orders = req.body
             const result = ordersCollection.insertOne(orders);
             res.send(result)
         })
 
 
-        app.post('/users', async (req, res) => {
+        app.post('/users', verifyJWT, verifyAdmin, async (req, res) => {
             const user = req.body
             const result = await userCollection.insertOne(user)
             res.send(result)
@@ -153,19 +164,25 @@ async function run() {
 
         // seller collection
 
-        app.post('/seller', async (req, res) => {
+        app.post('/seller', verifyJWT, async (req, res) => {
             const seller = req.body;
             const result = await sellerCollection.insertOne(seller);
             res.send(result)
         })
 
         //delete buyers 
-        app.delete('/users/:id', async (req, res) => {
-            const id = req.params.id
-            const filter = { _id: ObjectId(id) }
-            const result = userCollection.deleteOne(filter);
+        app.delete('/users/:id', verifyJWT, verifyAdmin, async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const result = await userCollection.deleteOne(filter);
             res.send(result)
         })
+        // app.get('/users/:id', async (req, res) => {
+        //     const id = req.params.id
+        //     const filter = { _id: ObjectId(id) }
+        //     const result = await userCollection.findOne(filter);
+        //     res.send(result)
+        // })
 
 
 
