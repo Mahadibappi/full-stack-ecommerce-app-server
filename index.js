@@ -31,7 +31,7 @@ app.get("/category/:id", (req, res) => {
     res.send(categoryNews);
 
 });
-// server used
+
 
 // MONGO DB
 const uri = `mongodb+srv://${process.env.ADMIN_USER}:${process.env.ADMIN_PASS}@cluster0.guw4vbk.mongodb.net/?retryWrites=true&w=majority`;
@@ -85,6 +85,20 @@ async function run() {
             next()
         }
 
+        // jwt token
+
+        app.get('/jwt', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email };
+            const user = await userCollection.findOne(query);
+            if (user) {
+                const token = jwt.sign({ email }, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
+                return res.send({ accessToken: token })
+            }
+
+            res.status(403).send({ accessToken: "" })
+        })
+
 
         // get api
 
@@ -103,10 +117,6 @@ async function run() {
 
         app.get("/orders", async (req, res) => {
             const email = req.query.email
-            // const decodedEmail = req.decoded.email;
-            // if (email != decodedEmail) {
-            //     return res.status(403).send({ message: 'forbidden access' })
-            // }
             const query = { email: email };
             const orders = await ordersCollection.find(query).toArray()
             res.send(orders)
@@ -126,11 +136,29 @@ async function run() {
             const user = await userCollection.findOne(query);
             res.send({ isAdmin: user?.role === 'admin' })
         })
+        // seller check
+        app.get('/users/seller/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
+            const user = await userCollection.findOne(query);
+            res.send({ isSeller: user?.role === 'Seller' })
+        })
+
+
+
+
 
         // get all users
-
         app.get('/users', async (req, res) => {
             const query = {}
+            const result = await userCollection.find(query).toArray()
+            res.send(result)
+
+        })
+
+        // all sellers
+        app.get('/users/seller', async (req, res) => {
+            const query = { role: "Seller" }
             const result = await userCollection.find(query).toArray()
             res.send(result)
 
@@ -161,19 +189,7 @@ async function run() {
             res.send(result)
         })
 
-        // jwt token
 
-        app.get('/jwt', async (req, res) => {
-            const email = req.query.email;
-            const query = { email: email };
-            const user = await userCollection.findOne(query);
-            if (user) {
-                const token = jwt.sign({ email }, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
-                return res.send({ accessToken: token })
-            }
-
-            res.status(403).send({ accessToken: "" })
-        })
 
         // seller collection
 
