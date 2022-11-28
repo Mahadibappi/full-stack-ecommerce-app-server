@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const jwt = require('jsonwebtoken')
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
+const jwt = require('jsonwebtoken')
 
 // server used
 const categories = require("./data/category.json")
@@ -70,6 +70,7 @@ async function run() {
         const productCollection = client.db("usedProduct").collection("product");
 
         const ordersCollection = client.db("usedProduct").collection('orders')
+
         const sellerCollection = client.db("usedProduct").collection('sellers')
         const paymentsCollection = client.db("usedProduct").collection('payments')
 
@@ -100,12 +101,12 @@ async function run() {
             res.send(products)
         });
 
-        app.get("/orders", verifyJWT, async (req, res) => {
+        app.get("/orders", async (req, res) => {
             const email = req.query.email
-            const decodedEmail = req.decoded.email;
-            if (email != decodedEmail) {
-                return res.status(403).send({ message: 'forbidden access' })
-            }
+            // const decodedEmail = req.decoded.email;
+            // if (email != decodedEmail) {
+            //     return res.status(403).send({ message: 'forbidden access' })
+            // }
             const query = { email: email };
             const orders = await ordersCollection.find(query).toArray()
             res.send(orders)
@@ -135,6 +136,7 @@ async function run() {
 
         })
 
+
         // get orders for payment
 
         app.get('/orders/:id', async (req, res) => {
@@ -145,15 +147,15 @@ async function run() {
         })
 
 
-        // POST API
-        app.post('/orders', verifyJWT, async (req, res) => {
+        // POST orders  API
+        app.post('/orders', async (req, res) => {
             const orders = req.body
             const result = ordersCollection.insertOne(orders);
             res.send(result)
         })
 
 
-        app.post('/users', verifyJWT, verifyAdmin, async (req, res) => {
+        app.post('/users', async (req, res) => {
             const user = req.body
             const result = await userCollection.insertOne(user)
             res.send(result)
@@ -175,14 +177,14 @@ async function run() {
 
         // seller collection
 
-        app.post('/seller', verifyJWT, async (req, res) => {
+        app.post('/seller', async (req, res) => {
             const seller = req.body;
             const result = await sellerCollection.insertOne(seller);
             res.send(result)
         })
 
         //delete buyers 
-        app.delete('/users/:id', verifyJWT, verifyAdmin, async (req, res) => {
+        app.delete('/users/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
             const result = await userCollection.deleteOne(filter);
