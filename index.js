@@ -20,11 +20,6 @@ app.get("/", (req, res) => {
     res.send("product server running")
 })
 
-// using local server 
-// app.get("/brands", (req, res) => {
-//     res.send(categories);
-// });
-
 app.get("/category/:id", (req, res) => {
     const id = req.params.id
     const categoryNews = product.filter((n) => n.category_id === id);
@@ -144,10 +139,6 @@ async function run() {
             res.send({ isSeller: user?.role === 'Seller' })
         })
 
-
-
-
-
         // get all users
         app.get('/users', async (req, res) => {
             const query = {}
@@ -206,6 +197,18 @@ async function run() {
             const result = await userCollection.deleteOne(filter);
             res.send(result)
         })
+
+        //delete products 
+        app.delete('/product/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const result = await productCollection.deleteOne(filter);
+            res.send(result)
+        })
+
+
+
+
         app.post('/create-payment-intent', async (req, res) => {
             const orders = req.body;
             const price = orders.price;
@@ -241,27 +244,7 @@ async function run() {
         })
 
 
-
-
-
-        // app.get('/users/:id', async (req, res) => {
-        //     const id = req.params.id
-        //     const filter = { _id: ObjectId(id) }
-        //     const result = await userCollection.findOne(filter);
-        //     res.send(result)
-        // })
-
-
-
-
-
-
     }
-
-
-
-
-
 
 
     finally {
@@ -277,5 +260,3 @@ app.listen(port, () => {
 })
 
 
-// QECfFi55pmCHzvnS
-// usedProduct
